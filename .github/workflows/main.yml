@@ -6,8 +6,12 @@ jobs:
   run-shell-command:
     runs-on: ubuntu-latest
     steps:
-      - name: echo string
-        run: echo "Hello World"
+      - name: setup code
+        run: echo "setup code"
+      - name: starting test
+        run: echo "test completed"
+      - name: api deployment
+        run: echo "deploy in pulumi"
       - name: multi script
         run: |
           node -v
