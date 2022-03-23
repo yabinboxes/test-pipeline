@@ -1,19 +1,28 @@
-name: Shell Commands
+name: Lint, Test & Build
 
 on: [push]
 
 jobs:
-  run-shell-command:
+  builds:
+    
     runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [17.x]
+    
     steps:
-      - name: setup code
-        run: echo "setup code"
-      - name: starting test
-        run: echo "test completed"
-      - name: api deployment
-        run: echo "deploy in pulumi"
-      - name: multi script
-        run: |
-          node -v
-          npm -v
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm run test:ci
+      - name: Build
+        run: npm run build:ci
 
