@@ -25,4 +25,6 @@ jobs:
         run: npm run test:ci
       - name: Build
         run: npm run build:ci
-
+      - name: Deploy
+        run: |
+          curl --location -X GET 'http://localhost:5000/deploy-dev-unit'
